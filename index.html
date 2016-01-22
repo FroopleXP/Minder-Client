@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Minder - Client</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+	</head>
+
+	<script type="text/javascript">
+		$('document').ready(function() {
+			// Setting the variables
+			var username = "s14connoredwards";
+			var task_viewer = $("#task_table");
+
+			// Getting the Homework tasks
+			$.ajax({
+				url: 'http://api.noval-technologies.uk:8080/api/v1/viewer/' + username,
+				method: "GET",
+				dataType: "JSON",
+				timeout: 10000,
+				success: function(data) {
+					var data_table = $("#task_table");
+					$.each(data.tasks, function(index, value) {
+						var data_to_add = "";
+						data_to_add += "<tr>";
+						data_to_add += "<td>";
+						data_to_add += "<b>" + value.task_name + " (" + value.class_name + ")</b>";
+						data_to_add += "<p>" + value.task_desc + "</p>";
+						data_to_add += "</td>";
+						data_to_add += "</tr>";
+						data_table.append(data_to_add);
+					});
+				},
+				error: function(data) {
+					alert("Request failed of timed out!");
+					console.log(data);
+				}
+			});
+		});
+	</script>
+
+	<body>
+		<div class="container">
+			<!-- First row of content -->
+			<div class="row">
+				<!-- Container for tasks -->
+				<div class="col-md-12">
+						<!-- Table for previewing the classes -->
+						<table class="table table-hover" style="font-size: 1em;" id="task_table">
+							<!-- Added via JS -->
+						</table>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

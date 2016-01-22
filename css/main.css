@@ -1,0 +1,9 @@
+.task_viewer {
+	max-height: 350px;
+	min-height: auto;
+	overflow-y: auto;
+}
+
+table {
+	padding: 10px;
+}
